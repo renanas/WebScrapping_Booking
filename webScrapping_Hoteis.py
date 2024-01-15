@@ -24,11 +24,10 @@ def loginDialog():
     # Localiza o botão pelo XPath do dialog
     find_Element(By.XPATH, "//div[@class='abcc616ec7 cc1b961f14 c180176d40 f11eccb5e8 ff74db973c']/button[@aria-label='Ignorar informações de login.']")
 
-def getDestinoPesquisa():
+def getDestinoPesquisa(local_nome):
     # Localize o campo LOCAL pelo seletor de Classe
     local_campo = find_ElementReturn(By.CLASS_NAME, "eb46370fe1")
     # Insira um valor no campo
-    local_nome = 'Noronha'
     local_campo.send_keys(local_nome)
 
 def getDataPesquisa():
@@ -60,8 +59,8 @@ def getQuartoPesquisa():
     select_crianca_elemento = Select(crianca_elemento)
     select_crianca_elemento.select_by_value("2")
 
-def camposPesquisa():
-    getDestinoPesquisa()
+def camposPesquisa(local_nome):
+    getDestinoPesquisa(local_nome)
     getDataPesquisa()
     getQuartoPesquisa()
 
@@ -116,7 +115,8 @@ try:
     loginDialog()
 
     # Preencher campos de pesquisa
-    camposPesquisa()
+    local_nome = 'noronha'
+    camposPesquisa(local_nome)
 
     # Pesquisar Hoteis
     pesquisarHoteis()
