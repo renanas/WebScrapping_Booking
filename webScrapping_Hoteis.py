@@ -7,68 +7,52 @@ import time
 import openpyxl
 
 
+def find_Element(byElement, elementName):
+    # Localiza o elemento
+    print(f"By element: {byElement}, finding element: {elementName}")
+    element = driver.find_element(byElement, elementName)
+    # Execute click na data encontrada
+    element.click()
+
+def find_ElementReturn(byElement, elementName):
+    # Localiza o elemento
+    print(f"By element: {byElement}, finding element: {elementName}")
+    element = driver.find_element(byElement, elementName)
+    return element
+
 def loginDialog():
     # Localiza o botão pelo XPath do dialog
-    xpath_dialog_login = "//div[@class='abcc616ec7 cc1b961f14 c180176d40 f11eccb5e8 ff74db973c']/button[@aria-label='Ignorar informações de login.']"
-    botao_dialog_login = driver.find_element(By.XPATH, xpath_dialog_login)
-    # Clica no botão X para fechar o dialog
-    botao_dialog_login.click()
-
+    find_Element(By.XPATH, "//div[@class='abcc616ec7 cc1b961f14 c180176d40 f11eccb5e8 ff74db973c']/button[@aria-label='Ignorar informações de login.']")
 
 def getDestinoPesquisa():
     # Localize o campo LOCAL pelo seletor de Classe
-    local_selector = "eb46370fe1"
-    local_campo = driver.find_element(By.CLASS_NAME, local_selector)
+    local_campo = find_ElementReturn(By.CLASS_NAME, "eb46370fe1")
     # Insira um valor no campo
     local_nome = 'Noronha'
     local_campo.send_keys(local_nome)
 
 def getDataPesquisa():
     # Localiza o campo DATA pelo seletor Classe
-    data_selector = "a1139161bf" 
-    data_campo = driver.find_element(By.CLASS_NAME, data_selector) 
-    # Insira um valor no campo
-    data_campo.click()
-
+    find_Element(By.CLASS_NAME, "a1139161bf")
 
     # Localiza o elemento pelo XPath usando o atributo data-date para a Data Inicio
-    xpath_data_1 = "//span[@data-date='2024-01-17']"
-    elemento1 = driver.find_element(By.XPATH, xpath_data_1)
-    # Execute click na data encontrada
-    elemento1.click()
-
-    
+    find_Element(By.XPATH, "//span[@data-date='2024-01-17']")
+        
     # Localiza o elemento pelo XPath usando o atributo data-date para a Data Fim
-    xpath_data_2 = "//span[@data-date='2024-01-30']"
-    elemento2 = driver.find_element(By.XPATH, xpath_data_2)
-    # Execute click na data encontrada
-    elemento2.click()
+    find_Element(By.XPATH, "//span[@data-date='2024-01-30']")
 
 def getQuartoPesquisa():
      # Localiza o campo do tipo de Quartos
-    quarto_selector = 'd777d2b248'
-    quarto_elemento = driver.find_element(By.CLASS_NAME, quarto_selector)
-    # Executa o click para selecionar os tipos de quarto
-    quarto_elemento.click()
+    find_Element(By.CLASS_NAME, 'd777d2b248')
 
     # Soma 1 adulto no quarto
-    adulto_selector = '//*[@class="a83ed08757 c21c56c305 f38b6daa18 d691166b09 ab98298258 deab83296e bb803d8689 f4d78af12a"]'
-    adulto_elemento = driver.find_element(By.XPATH, adulto_selector)
-    # Executa o click para adicionar adulto
-    adulto_elemento.click()
+    find_Element(By.XPATH, '//*[@class="a83ed08757 c21c56c305 f38b6daa18 d691166b09 ab98298258 deab83296e bb803d8689 f4d78af12a"]')
 
     # Encontra selector para Quantidade de Quartos
-    qnt_quarto_selector = '//input[@id="no_rooms"]/following-sibling::div/button[contains(@class, "a83ed08757 c21c56c305 f38b6daa18 d691166b09 ab98298258 deab83296e bb803d8689 f4d78af12a")]'
-    qnt_quarto_elemento = driver.find_element(By.XPATH, qnt_quarto_selector)
-    #Executa o click para adicionar crianca
-    qnt_quarto_elemento.click()
+    find_Element(By.XPATH, '//input[@id="no_rooms"]/following-sibling::div/button[contains(@class, "a83ed08757 c21c56c305 f38b6daa18 d691166b09 ab98298258 deab83296e bb803d8689 f4d78af12a")]')
 
-     
     # Soma 1 crianca no quarto
-    crianca_selector = '//input[@id="group_children"]/following-sibling::div/button[contains(@class, "a83ed08757 c21c56c305 f38b6daa18 d691166b09 ab98298258 deab83296e bb803d8689 f4d78af12a")]'
-    crianca_elemento = driver.find_element(By.XPATH, crianca_selector)
-    #Executa o click para adicionar crianca
-    crianca_elemento.click()
+    find_Element(By.XPATH, '//input[@id="group_children"]/following-sibling::div/button[contains(@class, "a83ed08757 c21c56c305 f38b6daa18 d691166b09 ab98298258 deab83296e bb803d8689 f4d78af12a")]')
 
     # Encontra o seletor para Quantidade de crianças
     crianca_selector ='//select[@class="ebf4591c8e"]'
@@ -76,34 +60,25 @@ def getQuartoPesquisa():
     select_crianca_elemento = Select(crianca_elemento)
     select_crianca_elemento.select_by_value("2")
 
-
 def camposPesquisa():
     getDestinoPesquisa()
     getDataPesquisa()
     getQuartoPesquisa()
 
 def pesquisarHoteis():
-    pesquisar_selector = '//*[@class="a83ed08757 c21c56c305 a4c1805887 f671049264 d2529514af c082d89982 cceeb8986b"]'
-    pesquisar_selector_elemento = driver.find_element(By.XPATH, pesquisar_selector)
-    # Executa o click para adicionar adulto
-    pesquisar_selector_elemento.click()
+    # Encontra o selector de Pesquisar e clica no botão
+    find_Element(By.XPATH, '//*[@class="a83ed08757 c21c56c305 a4c1805887 f671049264 d2529514af c082d89982 cceeb8986b"]')
 
 def pesquisarTipoPropriedade(tipoPropriedade):
     # Seleciona o filtro de Hotel
-    filtro_hotel_selector = f'//div [@data-filters-item = "{tipoPropriedade}"]'
-    filtro_hotel_elemento = driver.find_element(By.XPATH, filtro_hotel_selector)
-    filtro_hotel_elemento.click()
+    find_Element(By.XPATH, f'//div [@data-filters-item = "{tipoPropriedade}"]')
 
 def ordernacaoDaPagina(ordenacaoPaginaEnum):
     # Clica na botão para habilitar ordenações
-    habilita_ordenacoes_selector = '//button[@class="a83ed08757 faefc93c6f b94d37c0c4"]'
-    habilita_ordenacoes_elemento = driver.find_element(By.XPATH, habilita_ordenacoes_selector)
-    habilita_ordenacoes_elemento.click()
+    find_Element(By.XPATH, '//button[@class="a83ed08757 faefc93c6f b94d37c0c4"]')
 
     # Seleciona filtro de ordenação
-    filtro_ordenacao_selector = f'//button[@data-id = "{ordenacaoPaginaEnum}"]'
-    filtro_ordenacao_elemento = driver.find_element(By.XPATH, filtro_ordenacao_selector)
-    filtro_ordenacao_elemento.click()
+    find_Element(By.XPATH, f'//button[@data-id = "{ordenacaoPaginaEnum}"]')
 
 def criacaoPlanilha():
     # Criando a planilha
@@ -158,7 +133,6 @@ try:
     tipoPaginacao = 'Preço (mais baixo primeiro)'
     ordenacaoPaginaEnum = converter_tipo_paginacao(tipoPaginacao)
     ordernacaoDaPagina(str(ordenacaoPaginaEnum))
-    
 
     time.sleep(5)
 
